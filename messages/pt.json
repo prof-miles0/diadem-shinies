@@ -217,5 +217,9 @@
 	"language_spanish": "Espanhol",
 	"yesterday_time_lower": "ontem, {time}",
 	"today_time_lower": "hoje, {time}",
-	"tomorrow_time_lower": "amanhã, {time}"
+	"tomorrow_time_lower": "amanhã, {time}",
+	"showcase_weight": "Peso (kg)",
+	"pokemon_weight": "Peso",
+	"x_kg": "{x} kg",
+	"weight_filter_notice": "Filtra pelo peso pessoal que os teus treinadores vinculados veriam. Usa o treinador do filtro de pontuação de Vitrine, se estiver definido; caso contrário, qualquer treinador vinculado. Com espécies selecionadas, o intervalo vai de 0,01× a 1,99× o seu peso médio."
 }

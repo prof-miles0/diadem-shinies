@@ -123,14 +123,17 @@
 								id="{id}-minimum"
 								class="w-full tabular-nums"
 								type="number"
+								inputmode="decimal"
 								min="0"
 								step="any"
 								value={minScore}
+								onfocus={(event) => event.currentTarget.select()}
 								oninput={(event) => {
+									// leave empty/partial input alone while typing; it's restored on blur
 									const value = event.currentTarget.valueAsNumber;
 									if (Number.isFinite(value) && value >= 0) minScore = value;
-									else event.currentTarget.value = String(minScore);
 								}}
+								onblur={(event) => (event.currentTarget.value = String(minScore))}
 							/>
 						</label>
 					</div>

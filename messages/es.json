@@ -653,5 +653,9 @@
 	"fed": "Alimentado",
 	"catchable": "Atrapable",
 	"find_wild_name": "Encontrar {name} salvaje",
-	"filters_dont_match_gym": "Ninguno de tus filtros coincide con este Gimnasio"
+	"filters_dont_match_gym": "Ninguno de tus filtros coincide con este Gimnasio",
+	"showcase_weight": "Peso (kg)",
+	"pokemon_weight": "Peso",
+	"x_kg": "{x} kg",
+	"weight_filter_notice": "Filtra por el peso personal que verían tus entrenadores vinculados. Usa el entrenador del filtro de puntuación de exhibición si está elegido; si no, cualquier entrenador vinculado. Con especies seleccionadas, el rango va de 0,01× a 1,99× su peso medio."
 }

@@ -483,5 +483,9 @@
 	"language_polish": "Polski",
 	"yesterday_time_lower": "wczoraj, {time}",
 	"today_time_lower": "dziś, {time}",
-	"tomorrow_time_lower": "jutro, {time}"
+	"tomorrow_time_lower": "jutro, {time}",
+	"showcase_weight": "Waga (kg)",
+	"pokemon_weight": "Waga",
+	"x_kg": "{x} kg",
+	"weight_filter_notice": "Filtruje według osobistej wagi, którą zobaczyliby Twoi połączeni trenerzy. Używa trenera z filtra wyniku Showcase, jeśli jest ustawiony, w przeciwnym razie dowolnego połączonego trenera. Po wybraniu gatunku zakres wynosi od 0,01× do 1,99× jego średniej wagi."
 }

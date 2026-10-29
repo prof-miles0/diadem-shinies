@@ -708,5 +708,9 @@
 	"scout_location": "Standort scannen",
 	"address_unavailable": "Adresse nicht verfügbar",
 	"my_location": "Mein Standort",
-	"in_range": "In Reichweite"
+	"in_range": "In Reichweite",
+	"showcase_weight": "Gewicht (kg)",
+	"pokemon_weight": "Gewicht",
+	"x_kg": "{x} kg",
+	"weight_filter_notice": "Filtert nach dem persönlichen Gewicht, das deine verknüpften Trainer sehen würden. Verwendet den Trainer aus dem Showcase-Punktefilter, falls gesetzt, sonst einen beliebigen verknüpften Trainer. Mit ausgewählter Spezies reicht der Bereich vom 0,01- bis 1,99-Fachen ihres Durchschnittsgewichts."
 }
