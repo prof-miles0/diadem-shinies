@@ -91,6 +91,11 @@ export type FiltersetPokemon = BaseFilterset & {
 	personalShinyTrainers?: string[];
 	/** Predicted biggest-showcase score for one linked_trainer id. */
 	showcase?: { trainerId: string; minScore: number };
+	/**
+	 * Personal weight in kg (Golbat's size_for). Checked against the showcase trainer when
+	 * one is set, otherwise matches if any linked trainer's weight is in range.
+	 */
+	weight?: MinMax;
 };
 
 export type FiltersetPokestopPlain = BaseFilterset & {

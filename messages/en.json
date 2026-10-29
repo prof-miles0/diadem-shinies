@@ -747,5 +747,8 @@
 	"showcase_filter": "Personal showcase score",
 	"showcase_filter_summary": "{trainer}: ≥ {score}",
 	"showcase_filter_notice": "Show only Pokémon whose predicted biggest-showcase score meets the minimum for one linked trainer. Missing or unsupported scores do not match.",
-	"showcase_link_trainers": "Link a trainer in your profile and wait for linking to finish to use this filter."
+	"showcase_link_trainers": "Link a trainer in your profile and wait for linking to finish to use this filter.",
+	"pokemon_weight": "Weight",
+	"x_kg": "{x} kg",
+	"weight_filter_notice": "Filters by the personal weight your linked trainers would see. Uses the trainer from the showcase score filter if set, otherwise any linked trainer. With species selected, the range spans 0.01× to 1.99× their average weight."
 }

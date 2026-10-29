@@ -13,6 +13,8 @@ export type MasterPokemon = {
 	baseAtk: number;
 	baseDef: number;
 	baseSta: number;
+	/** Average weight in kg (0 if unknown) */
+	weight: number;
 };
 
 export type MasterWeather = {

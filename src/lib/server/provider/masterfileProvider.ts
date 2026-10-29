@@ -24,6 +24,7 @@ type RawMasterFile = {
 				defense: number;
 				stamina: number;
 			};
+			weight?: number;
 		};
 	};
 	items: { [key: string]: { name: string } };
@@ -51,7 +52,8 @@ function makePokemon(
 		family: data.family ?? basePokemon?.family ?? 0,
 		baseAtk: data?.stats?.attack ?? basePokemon?.baseAtk ?? 0,
 		baseDef: data?.stats?.defense ?? basePokemon?.baseDef ?? 0,
-		baseSta: data?.stats?.stamina ?? basePokemon?.baseSta ?? 0
+		baseSta: data?.stats?.stamina ?? basePokemon?.baseSta ?? 0,
+		weight: data.weight ?? basePokemon?.weight ?? 0
 	} as MasterPokemon;
 
 	if (data.forms) {

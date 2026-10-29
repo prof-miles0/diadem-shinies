@@ -69,6 +69,7 @@ export const FiltersetPokemonSchema = BaseFiltersetSchema.extend({
 	level: MinMaxSchema.optional(),
 	gender: z.array(z.number()).optional(),
 	size: MinMaxSchema.optional(),
+	weight: MinMaxSchema.optional(),
 	pvpRankLittle: MinMaxSchema.optional(),
 	pvpRankGreat: MinMaxSchema.optional(),
 	pvpRankUltra: MinMaxSchema.optional(),

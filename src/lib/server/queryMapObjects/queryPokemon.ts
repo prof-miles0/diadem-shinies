@@ -316,6 +316,7 @@ export class PokemonQuery extends MapObjectQuery<PokemonData, FilterPokemon> {
 		// Never send an empty shiny_for: Golbat would treat it as no constraint at all.
 		const enabledFilters = allEnabledFilters.filter((f) => {
 			if (f.personalShiny && playersForFilterset(f, context).length === 0) return false;
+			if (f.weight && !context?.personalTrainers?.size) return false;
 			if (f.showcase) {
 				const playerId = context?.personalTrainerLinks?.get(f.showcase.trainerId);
 				if (!playerId || !context?.personalTrainers?.has(playerId)) return false;

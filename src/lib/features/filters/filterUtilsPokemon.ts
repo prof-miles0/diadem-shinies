@@ -7,6 +7,8 @@ import { mPokemon } from "@/lib/services/ingameLocale";
 import { getPokemonSize, League } from "@/lib/utils/pokemonUtils";
 import { Features, type FeaturesKey } from "@/lib/utils/features";
 import { getLinkedTrainers } from "@/lib/services/linkedTrainers.svelte";
+import { getMasterPokemon } from "@/lib/services/masterfile";
+import { round } from "@/lib/utils/numberFormat";
 
 /** Names of the trainers a personal filterset is limited to, if any ("Ash, Misty"). */
 export function personalShinyTrainerLabel(filter: FiltersetPokemon): string | undefined {
@@ -25,7 +27,17 @@ export function personalShinyTrainerLabel(filter: FiltersetPokemon): string | un
 
 export function pokemonFiltersetRequiredFeature(fs: FiltersetPokemon): FeaturesKey {
 	if (fs.pvpRankLittle || fs.pvpRankGreat || fs.pvpRankUltra) return Features.POKEMON_PVP;
-	if (fs.iv || fs.cp || fs.ivAtk || fs.ivDef || fs.ivSta || fs.level || fs.size || fs.showcase)
+	if (
+		fs.iv ||
+		fs.cp ||
+		fs.ivAtk ||
+		fs.ivDef ||
+		fs.ivSta ||
+		fs.level ||
+		fs.size ||
+		fs.showcase ||
+		fs.weight
+	)
 		return Features.POKEMON_IV;
 	if (fs.personalShiny) return Features.POKEMON_PERSONAL_SHINY;
 	return Features.POKEMON;
@@ -55,8 +67,24 @@ export const pokemonBounds = {
 	size: {
 		min: 1,
 		max: 5
+	},
+	weight: {
+		min: 0,
+		max: 2000
 	}
 };
+
+/** 0.01× to 1.99× the average weight of the selected species, or generic bounds if none. */
+export function getWeightBounds(pokemon: FiltersetPokemon["pokemon"]): MinMax {
+	const weights = (pokemon ?? [])
+		.map((p) => getMasterPokemon(p.pokemon_id, p.form)?.weight ?? 0)
+		.filter((weight) => weight > 0);
+	if (!weights.length) return pokemonBounds.weight;
+	return {
+		min: round(Math.min(...weights) * 0.01, 2),
+		max: round(Math.max(...weights) * 1.99, 2)
+	};
+}
 
 export function generatePokemonFilterDetails(filter: FiltersetPokemon) {
 	const title: FiltersetTitle = {
@@ -146,6 +174,9 @@ export function generatePokemonFilterDetails(filter: FiltersetPokemon) {
 	}
 	if (filter.size) {
 		attributes.push(getAttributeLabelSize(filter.size));
+	}
+	if (filter.weight) {
+		attributes.push(getAttributeLabelWeight(filter.weight, getWeightBounds(filter.pokemon)));
 	}
 
 	let attrText = "";
@@ -287,6 +318,16 @@ export function getAttributeLabelSize(size: MinMax | undefined) {
 
 export function getAttributeLabelCp(cp: MinMax | undefined) {
 	return makeAttributeRangeLabel(cp, pokemonBounds.cp.min, pokemonBounds.cp.max);
+}
+
+export function getAttributeLabelWeight(weight: MinMax | undefined, bounds: MinMax) {
+	return makeAttributeRangeLabel(
+		weight,
+		bounds.min,
+		bounds.max,
+		m.x_kg({ x: weight?.min ?? bounds.min }),
+		m.x_kg({ x: weight?.max ?? bounds.max })
+	);
 }
 
 export function getAttributeLabelLevel(level: MinMax | undefined) {

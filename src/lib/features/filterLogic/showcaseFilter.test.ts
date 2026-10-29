@@ -62,4 +62,33 @@ describe("showcase score filters", () => {
 				.success
 		).toBe(false);
 	});
+	it("matches personal weight for the showcase trainer or any linked trainer", () => {
+		const twoTrainers: PokemonData = {
+			...pokemon,
+			personal_sizes: {
+				owner: { trainerName: "Owner", height: 1, weight: 2, score: 900 },
+				other: { trainerName: "Other", height: 1, weight: 5 }
+			}
+		};
+		const weight = (min: number, max: number, showcase?: { trainerId: string; minScore: number }) =>
+			({
+				category: "pokemon",
+				enabled: true,
+				filters: [{ ...base, weight: { min, max }, showcase }]
+			}) as FilterPokemon;
+		expect(shouldDisplayPokemon(twoTrainers, weight(4, 6))).toBe(true);
+		expect(shouldDisplayPokemon(twoTrainers, weight(3, 4))).toBe(false);
+		expect(
+			shouldDisplayPokemon(twoTrainers, weight(4, 6, { trainerId: "owner", minScore: 0 }))
+		).toBe(false);
+		expect(
+			shouldDisplayPokemon(twoTrainers, weight(1.5, 2.5, { trainerId: "owner", minScore: 0 }))
+		).toBe(true);
+		expect(shouldDisplayPokemon({ ...pokemon, personal_sizes: undefined }, weight(0, 10))).toBe(
+			false
+		);
+		expect(
+			FiltersetPokemonSchema.parse({ ...base, weight: { min: 0.03, max: 4.98 } }).weight
+		).toEqual({ min: 0.03, max: 4.98 });
+	});
 });

@@ -71,17 +71,21 @@
 					id="{id}-minimum"
 					type="number"
 					class="w-32 font-normal tabular-nums"
+					inputmode="decimal"
 					min="0"
 					step="any"
 					value={thisData.showcase?.minScore ?? 0}
 					disabled={!thisData.showcase}
+					onfocus={(event) => event.currentTarget.select()}
 					oninput={(event) => {
+						// leave empty/partial input alone while typing; it's restored on blur
 						const minScore = event.currentTarget.valueAsNumber;
 						if (thisData.showcase && Number.isFinite(minScore) && minScore >= 0) {
 							thisData.showcase.minScore = minScore;
 							updateDetailsCurrentSelectedFilterset();
-						} else event.currentTarget.value = String(thisData.showcase?.minScore ?? 0);
+						}
 					}}
+					onblur={(event) => (event.currentTarget.value = String(thisData.showcase?.minScore ?? 0))}
 				/>
 			</label>
 			{#if !trainers.length}

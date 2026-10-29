@@ -17,8 +17,11 @@
 		getAttributeLabelCp,
 		getAttributeLabelLevel,
 		getAttributeLabelRank,
+		getAttributeLabelWeight,
+		getWeightBounds,
 		pokemonBounds
 	} from "@/lib/features/filters/filterUtilsPokemon";
+	import { round } from "@/lib/utils/numberFormat";
 	import PokemonFilterDisplay from "@/components/menus/filters/filterset/pokemon/PokemonFilterDisplay.svelte";
 	import { MapObjectType } from "@/lib/mapObjects/mapObjectTypes";
 	import PokemonSelectPage from "@/components/menus/filters/filterset/multiselect/PokemonSelectPage.svelte";
@@ -148,6 +151,37 @@
 							/>
 						{/snippet}
 					</Attribute>
+					{#if canPersonalShiny}
+						<Attribute label={m.pokemon_weight()}>
+							<AttributeChip
+								label={getAttributeLabelWeight(data?.weight, getWeightBounds(data.pokemon))}
+								isEmpty={!data.weight}
+								onremove={() => delete data.weight}
+							/>
+							{#snippet page(thisData: FiltersetPokemon)}
+								{@const bounds = getWeightBounds(thisData.pokemon)}
+								{@const range = bounds.max - bounds.min}
+								<p class="text-sm text-muted-foreground px-1">{m.weight_filter_notice()}</p>
+								<SliderRange
+									min={bounds.min}
+									max={bounds.max}
+									step={range <= 50 ? 0.01 : range <= 500 ? 0.1 : 1}
+									title={m.showcase_weight()}
+									valueMin={Math.max(thisData.weight?.min ?? bounds.min, bounds.min)}
+									valueMax={Math.min(thisData.weight?.max ?? bounds.max, bounds.max)}
+									onchange={([min, max]) =>
+										changeAttributeMinMax(
+											thisData,
+											"weight",
+											bounds.min,
+											bounds.max,
+											round(min, 2),
+											round(max, 2)
+										)}
+								/>
+							{/snippet}
+						</Attribute>
+					{/if}
 				</AttributesOverview>
 			{/if}
 

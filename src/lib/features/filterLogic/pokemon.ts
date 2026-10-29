@@ -46,6 +46,14 @@ function pokemonMatchesFilterset(data: PokemonData, filterset: FiltersetPokemon)
 	if (filterset.ivSta && !inRange(data.sta_iv, filterset.ivSta)) return false;
 	if (filterset.level && !inRange(data.level, filterset.level)) return false;
 	if (filterset.size && !inRange(data.size, filterset.size)) return false;
+	if (filterset.weight) {
+		const weight = filterset.weight;
+		const trainerId = filterset.showcase?.trainerId;
+		const sizes = trainerId
+			? [data.personal_sizes?.[trainerId]]
+			: Object.values(data.personal_sizes ?? {});
+		if (!sizes.some((size) => inRange(size?.weight, weight))) return false;
+	}
 
 	if (filterset.gender && data.gender != null && !filterset.gender.includes(data.gender)) {
 		return false;
