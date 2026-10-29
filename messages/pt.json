@@ -236,5 +236,6 @@
 	"filter_template_shiny_level_1": "Brilhante Nível 1",
 	"filter_template_light_rattata": "Rattata < 2,42 kg",
 	"filter_template_heavy_magikarp": "Magikarp > 13,13 kg",
-	"premade_choose_trainer": "Escolhe o treinador para este filtro"
+	"premade_choose_trainer": "Escolhe o treinador para este filtro",
+	"session_ended_toast": "A tua sessão foi terminada, por exemplo após iniciar sessão noutro dispositivo"
 }

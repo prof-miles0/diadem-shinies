@@ -754,5 +754,6 @@
 	"filter_template_shiny_level_1": "Shiny Level 1",
 	"filter_template_light_rattata": "Rattata < 2.42 kg",
 	"filter_template_heavy_magikarp": "Magikarp > 13.13 kg",
-	"premade_choose_trainer": "Choose the trainer for this filter"
+	"premade_choose_trainer": "Choose the trainer for this filter",
+	"session_ended_toast": "You were signed out because this session was closed, e.g. after signing in on another device"
 }

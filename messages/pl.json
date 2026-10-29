@@ -502,5 +502,6 @@
 	"filter_template_shiny_level_1": "Shiny Poziom 1",
 	"filter_template_light_rattata": "Rattata < 2,42 kg",
 	"filter_template_heavy_magikarp": "Magikarp > 13,13 kg",
-	"premade_choose_trainer": "Wybierz trenera dla tego filtra"
+	"premade_choose_trainer": "Wybierz trenera dla tego filtra",
+	"session_ended_toast": "Wylogowano cię, ponieważ ta sesja została zamknięta, np. po zalogowaniu na innym urządzeniu"
 }

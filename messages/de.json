@@ -727,5 +727,6 @@
 	"filter_template_shiny_level_1": "Shiny Level 1",
 	"filter_template_light_rattata": "Rattfratz < 2,42 kg",
 	"filter_template_heavy_magikarp": "Karpador > 13,13 kg",
-	"premade_choose_trainer": "Wähle den Trainer für diesen Filter"
+	"premade_choose_trainer": "Wähle den Trainer für diesen Filter",
+	"session_ended_toast": "Du wurdest abgemeldet, weil diese Sitzung beendet wurde, z. B. nach einer Anmeldung auf einem anderen Gerät"
 }
