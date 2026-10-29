@@ -70,6 +70,50 @@ export const premadeFiltersets: { [key in FilterCategory]?: AnyFilterset[] } = {
 			}
 		}),
 		filterset<FiltersetPokemon>({
+			emoji: "🌠",
+			title: "filter_template_shiny_level_1",
+			personalShiny: true,
+			level: { min: 0, max: 1 },
+			modifiers: {
+				glow: {
+					color: MODIFIER_COLORS.orange,
+					opacity: 0.75
+				},
+				showBadge: true
+			}
+		}),
+		filterset<FiltersetPokemon>({
+			uicon: {
+				category: IconCategory.POKEMON,
+				params: { pokemon_id: 19, form: 45 }
+			},
+			title: "filter_template_light_rattata",
+			pokemon: [{ pokemon_id: 19, form: 45 }],
+			// weights are compared rounded to 2 decimals, as shown in game
+			weight: { min: 0, max: 2.41 },
+			modifiers: {
+				glow: {
+					color: MODIFIER_COLORS.purple
+				},
+				showBadge: true
+			}
+		}),
+		filterset<FiltersetPokemon>({
+			uicon: {
+				category: IconCategory.POKEMON,
+				params: { pokemon_id: 129, form: 253 }
+			},
+			title: "filter_template_heavy_magikarp",
+			pokemon: [{ pokemon_id: 129, form: 253 }],
+			weight: { min: 13.14, max: 2000 },
+			modifiers: {
+				glow: {
+					color: MODIFIER_COLORS.purple
+				},
+				showBadge: true
+			}
+		}),
+		filterset<FiltersetPokemon>({
 			emoji: "🗑️",
 			title: "filter_template_nundo",
 			iv: { min: 0, max: 0 },

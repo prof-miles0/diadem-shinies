@@ -91,4 +91,61 @@ describe("showcase score filters", () => {
 			FiltersetPokemonSchema.parse({ ...base, weight: { min: 0.03, max: 4.98 } }).weight
 		).toEqual({ min: 0.03, max: 4.98 });
 	});
+	it("ties personal weight to the trainer the pokemon is shiny for, rounded like in game", () => {
+		const rattata: PokemonData = {
+			...pokemon,
+			shiny_for: ["Owner"],
+			shiny_for_links: ["owner"],
+			personal_sizes: {
+				owner: { trainerName: "Owner", height: 1, weight: 3.1 },
+				other: { trainerName: "Other", height: 1, weight: 2.414 }
+			}
+		};
+		const light = (personalShinyTrainers?: string[]) =>
+			({
+				category: "pokemon",
+				enabled: true,
+				filters: [
+					{ ...base, personalShiny: true, personalShinyTrainers, weight: { min: 0, max: 2.41 } }
+				]
+			}) as FilterPokemon;
+		// only "other" is light enough, but the pokemon is only shiny for "owner"
+		expect(shouldDisplayPokemon(rattata, light())).toBe(false);
+		expect(shouldDisplayPokemon(rattata, light(["other"]))).toBe(false);
+		const shinyForOther = { ...rattata, shiny_for: ["Other"], shiny_for_links: ["other"] };
+		expect(shouldDisplayPokemon(shinyForOther, light())).toBe(true);
+		expect(shouldDisplayPokemon(shinyForOther, light(["other"]))).toBe(true);
+		expect(shouldDisplayPokemon(shinyForOther, light(["owner"]))).toBe(false);
+		// 2.416 shows as 2.42 kg in game, so it is not below 2.42
+		const borderline = {
+			...shinyForOther,
+			personal_sizes: { other: { trainerName: "Other", height: 1, weight: 2.416 } }
+		};
+		expect(shouldDisplayPokemon(borderline, light())).toBe(false);
+	});
+	it("limits weight to the chosen trainer without requiring shiny", () => {
+		const magikarp: PokemonData = {
+			...pokemon,
+			personal_sizes: {
+				owner: { trainerName: "Owner", height: 1, weight: 12 },
+				other: { trainerName: "Other", height: 1, weight: 13.5 }
+			}
+		};
+		const heavy = (weightTrainer?: string) =>
+			({
+				category: "pokemon",
+				enabled: true,
+				filters: [{ ...base, weight: { min: 13.14, max: 2000 }, weightTrainer }]
+			}) as FilterPokemon;
+		expect(shouldDisplayPokemon(magikarp, heavy())).toBe(true);
+		expect(shouldDisplayPokemon(magikarp, heavy("other"))).toBe(true);
+		expect(shouldDisplayPokemon(magikarp, heavy("owner"))).toBe(false);
+		expect(
+			FiltersetPokemonSchema.parse({
+				...base,
+				weight: { min: 0, max: 2.41 },
+				weightTrainer: "owner"
+			}).weightTrainer
+		).toBe("owner");
+	});
 });

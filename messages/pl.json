@@ -487,5 +487,20 @@
 	"showcase_weight": "Waga (kg)",
 	"pokemon_weight": "Waga",
 	"x_kg": "{x} kg",
-	"weight_filter_notice": "Filtruje według osobistej wagi, którą zobaczyliby Twoi połączeni trenerzy. Używa trenera z filtra wyniku Showcase, jeśli jest ustawiony, w przeciwnym razie dowolnego połączonego trenera. Po wybraniu gatunku zakres wynosi od 0,01× do 1,99× jego średniej wagi."
+	"weight_filter_notice": "Filtruje według osobistej wagi, którą widzą Twoi połączeni trenerzy, zaokrąglonej do 2 miejsc po przecinku jak w grze. Wybierz trenera lub dopuść dowolnego połączonego trenera. Przy włączonym Shiny ten sam trener musi mieć go jako shiny; jeśli w Wyniku Showcase wybrano trenera, liczy się tylko on. Po wybraniu gatunku zakres wynosi od 0,01× do 1,99× jego średniej wagi.",
+	"personal_shiny_filter": "Shiny dla moich trenerów",
+	"personal_shiny_short": "Shiny",
+	"filter_template_personal_shiny": "Shiny",
+	"personal_shiny_attribute": "Shiny",
+	"personal_shiny_off": "Wył.",
+	"personal_shiny_pick_several": "Wybierz jednego lub więcej trenerów albo Wszyscy połączeni trenerzy, aby uwzględnić także tych połączonych później.",
+	"personal_shiny_all_trainers": "Wszyscy połączeni trenerzy",
+	"personal_shiny_trainer_missing": "Trener nie jest już połączony",
+	"notice_personal_shiny": "Shiny dla {trainers}",
+	"showcase_personal_title": "Wyniki Showcase",
+	"showcase_filter": "Wynik Showcase",
+	"filter_template_shiny_level_1": "Shiny Poziom 1",
+	"filter_template_light_rattata": "Rattata < 2,42 kg",
+	"filter_template_heavy_magikarp": "Magikarp > 13,13 kg",
+	"premade_choose_trainer": "Wybierz trenera dla tego filtra"
 }

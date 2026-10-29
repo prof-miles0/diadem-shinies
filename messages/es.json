@@ -657,5 +657,20 @@
 	"showcase_weight": "Peso (kg)",
 	"pokemon_weight": "Peso",
 	"x_kg": "{x} kg",
-	"weight_filter_notice": "Filtra por el peso personal que verían tus entrenadores vinculados. Usa el entrenador del filtro de puntuación de exhibición si está elegido; si no, cualquier entrenador vinculado. Con especies seleccionadas, el rango va de 0,01× a 1,99× su peso medio."
+	"weight_filter_notice": "Filtra por el peso personal que ven tus entrenadores vinculados, redondeado a 2 decimales como en el juego. Elige un entrenador o permite cualquiera de los vinculados. Con Variocolor activado, el mismo entrenador también debe tenerlo variocolor; si hay un entrenador elegido en la Puntuación de Exhibición, solo cuenta ese. Con especies seleccionadas, el rango va de 0,01× a 1,99× su peso medio.",
+	"personal_shiny_filter": "Variocolor para mis entrenadores",
+	"personal_shiny_short": "Variocolor",
+	"filter_template_personal_shiny": "Variocolor",
+	"personal_shiny_attribute": "Variocolor",
+	"personal_shiny_off": "Desactivado",
+	"personal_shiny_pick_several": "Elige uno o más entrenadores, o Todos los entrenadores vinculados para incluir también los que vincules más adelante.",
+	"personal_shiny_all_trainers": "Todos los entrenadores vinculados",
+	"personal_shiny_trainer_missing": "Entrenador ya no vinculado",
+	"notice_personal_shiny": "Variocolor para {trainers}",
+	"showcase_personal_title": "Puntuaciones de Exhibición",
+	"showcase_filter": "Puntuación de Exhibición",
+	"filter_template_shiny_level_1": "Variocolor Nivel 1",
+	"filter_template_light_rattata": "Rattata < 2,42 kg",
+	"filter_template_heavy_magikarp": "Magikarp > 13,13 kg",
+	"premade_choose_trainer": "Elige el entrenador para este filtro"
 }

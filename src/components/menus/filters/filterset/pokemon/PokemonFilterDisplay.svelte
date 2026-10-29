@@ -8,7 +8,6 @@
 		getAttributeLabelRank,
 		getAttributeLabelSize,
 		getAttributeLabelWeight,
-		getWeightBounds,
 		personalShinyTrainerLabel
 	} from "@/lib/features/filters/filterUtilsPokemon";
 	import * as m from "@/lib/paraglide/messages";
@@ -70,10 +69,7 @@
 		<AttributeDisplay label={m.level()} value={getAttributeLabelLevel(data.level)} />
 	{/if}
 	{#if data.weight}
-		<AttributeDisplay
-			label={m.pokemon_weight()}
-			value={getAttributeLabelWeight(data.weight, getWeightBounds(data.pokemon))}
-		/>
+		<AttributeDisplay label={m.pokemon_weight()} value={getAttributeLabelWeight(data)} />
 	{/if}
 	{#if data.pvpRankLittle}
 		<AttributeDisplay label={m.little_league()} value={getAttributeLabelRank(data.pvpRankLittle)} />

@@ -3,6 +3,7 @@ import type { FiltersetPokemon, MinMax } from "@/lib/features/filters/filtersets
 import { isCurrentSelectedOverwrite } from "@/lib/mapObjects/currentSelectedState.svelte";
 import { getUserSettings } from "@/lib/services/userSettings.svelte";
 import type { PokemonData } from "@/lib/types/mapObjectData/pokemon";
+import { round } from "@/lib/utils/numberFormat";
 import { getBestRank, League } from "@/lib/utils/pokemonUtils";
 
 function inRange(value: number | null | undefined, range: MinMax): boolean {
@@ -47,12 +48,20 @@ function pokemonMatchesFilterset(data: PokemonData, filterset: FiltersetPokemon)
 	if (filterset.level && !inRange(data.level, filterset.level)) return false;
 	if (filterset.size && !inRange(data.size, filterset.size)) return false;
 	if (filterset.weight) {
+		// The weight must match for a trainer that also satisfies the other personal attributes
 		const weight = filterset.weight;
-		const trainerId = filterset.showcase?.trainerId;
-		const sizes = trainerId
-			? [data.personal_sizes?.[trainerId]]
-			: Object.values(data.personal_sizes ?? {});
-		if (!sizes.some((size) => inRange(size?.weight, weight))) return false;
+		const showcaseTrainer = filterset.showcase?.trainerId;
+		const shinyTrainers = filterset.personalShinyTrainers;
+		const matches = Object.entries(data.personal_sizes ?? {}).some(
+			([trainerId, size]) =>
+				(!showcaseTrainer || trainerId === showcaseTrainer) &&
+				(!filterset.weightTrainer || trainerId === filterset.weightTrainer) &&
+				(!filterset.personalShiny ||
+					(data.shiny_for_links?.includes(trainerId) &&
+						(!shinyTrainers?.length || shinyTrainers.includes(trainerId)))) &&
+				inRange(round(size.weight, 2), weight)
+		);
+		if (!matches) return false;
 	}
 
 	if (filterset.gender && data.gender != null && !filterset.gender.includes(data.gender)) {

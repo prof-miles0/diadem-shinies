@@ -176,7 +176,7 @@ export function generatePokemonFilterDetails(filter: FiltersetPokemon) {
 		attributes.push(getAttributeLabelSize(filter.size));
 	}
 	if (filter.weight) {
-		attributes.push(getAttributeLabelWeight(filter.weight, getWeightBounds(filter.pokemon)));
+		attributes.push(getAttributeLabelWeight(filter));
 	}
 
 	let attrText = "";
@@ -320,14 +320,23 @@ export function getAttributeLabelCp(cp: MinMax | undefined) {
 	return makeAttributeRangeLabel(cp, pokemonBounds.cp.min, pokemonBounds.cp.max);
 }
 
-export function getAttributeLabelWeight(weight: MinMax | undefined, bounds: MinMax) {
-	return makeAttributeRangeLabel(
+export function getAttributeLabelWeight(filter: FiltersetPokemon) {
+	const bounds = getWeightBounds(filter.pokemon);
+	// premade filtersets use open-ended limits (e.g. 0 kg) that lie outside the species bounds
+	const weight = filter.weight && {
+		min: Math.max(filter.weight.min, bounds.min),
+		max: Math.min(filter.weight.max, bounds.max)
+	};
+	const label = makeAttributeRangeLabel(
 		weight,
 		bounds.min,
 		bounds.max,
 		m.x_kg({ x: weight?.min ?? bounds.min }),
 		m.x_kg({ x: weight?.max ?? bounds.max })
 	);
+	if (!filter.weightTrainer) return label;
+	const trainer = getLinkedTrainers().find((t) => t.id === filter.weightTrainer);
+	return `${label} (${trainer ? (trainer.trainerName ?? m.linked_trainers_unnamed()) : m.personal_shiny_trainer_missing()})`;
 }
 
 export function getAttributeLabelLevel(level: MinMax | undefined) {

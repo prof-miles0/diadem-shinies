@@ -6,7 +6,10 @@
 	import SliderRange from "@/components/ui/input/slider/SliderRange.svelte";
 	import type { FiltersetPokemon } from "@/lib/features/filters/filtersets";
 	import { makeAttributePokemonLabel } from "@/lib/features/filters/makeAttributeChipLabel";
-	import { getCurrentSelectedFilterset } from "@/lib/features/filters/filtersetPageData.svelte.js";
+	import {
+		getCurrentSelectedFilterset,
+		updateDetailsCurrentSelectedFilterset
+	} from "@/lib/features/filters/filtersetPageData.svelte.js";
 	import * as m from "@/lib/paraglide/messages";
 	import AppearanceAttribute from "@/components/menus/filters/filterset/pokemon/AppearanceAttribute.svelte";
 	import { changeAttributeMinMax } from "@/lib/features/filters/filtersetUtils.svelte";
@@ -22,6 +25,7 @@
 		pokemonBounds
 	} from "@/lib/features/filters/filterUtilsPokemon";
 	import { round } from "@/lib/utils/numberFormat";
+	import { getCompleteTrainers } from "@/lib/services/linkedTrainers.svelte";
 	import PokemonFilterDisplay from "@/components/menus/filters/filterset/pokemon/PokemonFilterDisplay.svelte";
 	import { MapObjectType } from "@/lib/mapObjects/mapObjectTypes";
 	import PokemonSelectPage from "@/components/menus/filters/filterset/multiselect/PokemonSelectPage.svelte";
@@ -154,14 +158,42 @@
 					{#if canPersonalShiny}
 						<Attribute label={m.pokemon_weight()}>
 							<AttributeChip
-								label={getAttributeLabelWeight(data?.weight, getWeightBounds(data.pokemon))}
+								label={getAttributeLabelWeight(data)}
 								isEmpty={!data.weight}
-								onremove={() => delete data.weight}
+								onremove={() => {
+									delete data.weight;
+									delete data.weightTrainer;
+								}}
 							/>
 							{#snippet page(thisData: FiltersetPokemon)}
 								{@const bounds = getWeightBounds(thisData.pokemon)}
 								{@const range = bounds.max - bounds.min}
 								<p class="text-sm text-muted-foreground px-1">{m.weight_filter_notice()}</p>
+								<label class="block text-base font-semibold space-y-2 px-1 pt-3">
+									<span class="block">{m.showcase_trainer()}</span>
+									<select
+										class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm font-normal focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background"
+										value={thisData.weightTrainer ?? ""}
+										onchange={(event) => {
+											if (event.currentTarget.value)
+												thisData.weightTrainer = event.currentTarget.value;
+											else delete thisData.weightTrainer;
+											updateDetailsCurrentSelectedFilterset();
+										}}
+									>
+										<option value="">{m.personal_shiny_all_trainers()}</option>
+										{#each getCompleteTrainers() as trainer (trainer.id)}
+											<option value={trainer.id}>
+												{trainer.trainerName ?? m.linked_trainers_unnamed()}
+											</option>
+										{/each}
+										{#if thisData.weightTrainer && !getCompleteTrainers().some((trainer) => trainer.id === thisData.weightTrainer)}
+											<option value={thisData.weightTrainer}
+												>{m.personal_shiny_trainer_missing()}</option
+											>
+										{/if}
+									</select>
+								</label>
 								<SliderRange
 									min={bounds.min}
 									max={bounds.max}
